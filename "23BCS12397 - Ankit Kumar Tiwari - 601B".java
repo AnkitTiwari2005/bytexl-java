@@ -2,23 +2,6 @@
 import java.io.*;
 import java.util.*;
 
-class PartA {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Integer> numbers = new ArrayList<>();
-        System.out.println("Enter integers (type 'end' to stop):");
-        while (true) {
-            String input = sc.next();
-            if (input.equalsIgnoreCase("end")) break;
-            Integer num = Integer.parseInt(input);
-            numbers.add(num);
-        }
-        int sum = 0;
-        for (Integer i : numbers) sum += i;
-        System.out.println("Sum: " + sum);
-    }
-}
-
 class Student implements Serializable {
     int studentID;
     String name;
@@ -27,23 +10,6 @@ class Student implements Serializable {
         this.studentID = studentID;
         this.name = name;
         this.grade = grade;
-    }
-}
-
-class PartB {
-    public static void main(String[] args) {
-        try {
-            Student s = new Student(101, "Ankit", "A");
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("student.dat"));
-            oos.writeObject(s);
-            oos.close();
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("student.dat"));
-            Student st = (Student) ois.readObject();
-            ois.close();
-            System.out.println("ID: " + st.studentID + " Name: " + st.name + " Grade: " + st.grade);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
 
@@ -64,11 +30,71 @@ class Employee {
     }
 }
 
-class PartC {
+public class Main12397 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         while (true) {
-            System.out.println("1. Add Employee\n2. Display Employees\n3. Exit");
+            System.out.println("\n=== MAIN MENU ===");
+            System.out.println("1. Sum of Integers (Autoboxing)");
+            System.out.println("2. Serialize & Deserialize Student");
+            System.out.println("3. Employee Management System");
+            System.out.println("4. Exit");
+            System.out.print("Enter choice: ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    partA();
+                    break;
+                case 2:
+                    partB();
+                    break;
+                case 3:
+                    partC();
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+
+    static void partA() {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Integer> numbers = new ArrayList<>();
+        System.out.println("Enter integers (type 'end' to stop):");
+        while (true) {
+            String input = sc.next();
+            if (input.equalsIgnoreCase("end")) break;
+            Integer num = Integer.parseInt(input);
+            numbers.add(num);
+        }
+        int sum = 0;
+        for (Integer i : numbers) sum += i;
+        System.out.println("Sum: " + sum);
+    }
+
+    static void partB() {
+        try {
+            Student s = new Student(101, "Ankit", "A");
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("student.dat"));
+            oos.writeObject(s);
+            oos.close();
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("student.dat"));
+            Student st = (Student) ois.readObject();
+            ois.close();
+            System.out.println("ID: " + st.studentID + " Name: " + st.name + " Grade: " + st.grade);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void partC() {
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n-- Employee Management --");
+            System.out.println("1. Add Employee\n2. Display Employees\n3. Back to Main Menu");
             int choice = sc.nextInt();
             if (choice == 1) {
                 System.out.print("Enter ID: ");
